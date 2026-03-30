@@ -1,98 +1,93 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Para Valentina ❤️</title>
+    <title>Para Valentina 💖</title>
     <style>
         body {
             margin: 0;
             overflow: hidden;
-            background: black;
+            background: linear-gradient(135deg, #ffc0cb, #ffe4ec);
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            font-family: Arial, sans-serif;
+            font-family: "Comic Sans MS", cursive;
             text-align: center;
-            color: #ff4d6d;
         }
 
-        h1 {
+        #mensaje {
+            display: none;
             font-size: 28px;
             max-width: 90%;
+            color: #ff4d6d;
+            text-shadow: 0 0 10px white;
             z-index: 1;
-            text-shadow: 0 0 10px #ff4d6d, 0 0 25px #ff4d6d;
-            animation: glow 2s infinite alternate;
         }
 
-        @keyframes glow {
-            from { text-shadow: 0 0 10px #ff4d6d; }
-            to { text-shadow: 0 0 30px #ff4d6d; }
+        button {
+            padding: 15px 25px;
+            font-size: 18px;
+            border: none;
+            border-radius: 20px;
+            background: #ff4d6d;
+            color: white;
+            cursor: pointer;
+            box-shadow: 0 0 10px #ff4d6d;
         }
 
         .heart {
             position: absolute;
-            width: 20px;
-            height: 20px;
-            background: #ff4d6d;
-            transform: rotate(45deg);
+            font-size: 20px;
             animation: subir linear infinite;
         }
 
-        .heart::before,
-        .heart::after {
-            content: "";
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            background: #ff4d6d;
-            border-radius: 50%;
-        }
-
-        .heart::before {
-            top: -10px;
-            left: 0;
-        }
-
-        .heart::after {
-            left: -10px;
-            top: 0;
-        }
-
         @keyframes subir {
-            0% {
-                transform: translateY(100vh) rotate(45deg);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-10vh) rotate(45deg);
-                opacity: 0;
-            }
+            0% { transform: translateY(100vh); opacity: 1; }
+            100% { transform: translateY(-10vh); opacity: 0; }
         }
     </style>
 </head>
 <body>
 
-<h1>
-Eres la niña más hermosa que conozco 💖<br>
-Valentina, me encantan tus ojitos hermosos 🥺💘
-</h1>
+<button onclick="mostrarMensaje()">💌 Toca aquí 💌</button>
+
+<div id="mensaje"></div>
 
 <script>
+const texto = "Eres la niña más hermosa que conozco 💖\nValentina, me encantan tus ojitos hermosos 🥺💘";
+let i = 0;
+
+function mostrarMensaje() {
+    document.querySelector("button").style.display = "none";
+    const mensaje = document.getElementById("mensaje");
+    mensaje.style.display = "block";
+
+    function escribir() {
+        if (i < texto.length) {
+            mensaje.innerHTML += texto[i] === "\n" ? "<br>" : texto[i];
+            i++;
+            setTimeout(escribir, 50);
+        }
+    }
+    escribir();
+}
+
 function crearCorazon() {
     const heart = document.createElement("div");
     heart.classList.add("heart");
 
+    const emojis = ["💖","💘","💗","💞","💝","💓","🌸","🎀"];
+    heart.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
+
     heart.style.left = Math.random() * 100 + "vw";
-    heart.style.animationDuration = (3 + Math.random() * 2) + "s";
+    heart.style.animationDuration = (3 + Math.random() * 3) + "s";
 
     document.body.appendChild(heart);
 
-    setTimeout(() => {
-        heart.remove();
-    }, 5000);
+    setTimeout(() => heart.remove(), 6000);
 }
 
-setInterval(crearCorazon, 250);
+setInterval(crearCorazon, 300);
 </script>
 
 </body>
